@@ -1,6 +1,9 @@
 # llama-server-conversation-viewer
 A simple conversation viewer for llama-server exports
 
+<img width="1053" height="547" alt="image" src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" />
+<img width="1062" height="579" alt="image" src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" />
+
 ## Contents
 
 - split.py - splits the json array from llama-server into individual conversations based on the metadata from the conversation item
