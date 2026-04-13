@@ -1,10 +1,9 @@
 # llama-server-conversation-viewer
 A simple conversation viewer for llama-server exports
 
-<p align="center">
-<img width="526" height="275" alt="image" src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" />
-<img width="526" height="275" alt="image" src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" />
-</p>
+| Pic1| Pic2 |
+|---|---|
+| <img src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" width="100%" /> | <img src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" width="100%" /> |
 
 ## Contents
 
