@@ -1,5 +1,6 @@
 # llama-server-conversation-viewer
 A simple conversation viewer for llama-server exports
+Online version [here](https://cristib89.github.io/llama-server-conversation-viewer/viewer.html)
 
 | Top| Bottom |
 |---|---|
@@ -39,10 +40,6 @@ A simple conversation viewer for llama-server exports
 - maybe I don't want to start a llama-server to take a look at past conversations
 - maybe I want to have a copy of conversations somewhere else outside of browser localstorage
 - the json format might be hard to read with a text editor
-
-## Online version
-
-- https://cristib89.github.io/llama-server-conversation-viewer/viewer.html
 
 ## Disclaimers
 
