@@ -3,7 +3,7 @@ A simple conversation viewer for llama-server exports
 
 | Top| Bottom |
 |---|---|
-| <img src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" width="100%" /> | <img src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" width="100%" /> |
+| <a href="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538"><img src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" width="100%" /></a> | <a href="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039"><img src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" width="100%" /></a> |
 
 ## Contents
 
