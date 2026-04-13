@@ -6,7 +6,7 @@ A simple conversation viewer for llama-server exports
 
 ## Contents
 
-- [a relative link](split.py) - splits the json array containing conversations from llama-server into individual conversations and the filename is generated based on the metadata from the conversation item as if it you would export a single conversation from llama-server
+- [split.py](split.py) - splits the json array containing conversations from llama-server into individual conversations and the filename is generated based on the metadata from the conversation item as if it you would export a single conversation from llama-server
 
 		usage:
 
@@ -14,7 +14,7 @@ A simple conversation viewer for llama-server exports
 		Generated: 2026-04-13_14-29-12_conv_2ea30759_run_a_query_on_the_a.json
 		Generated: 2026-04-13_14-28-08_conv_7e3591a8_hello_test_123.json
 
-- [a relative link](viewer.html) - a static html file which relies on https://cdn.jsdelivr.net/npm/marked/marked.min.js to render markdown nicely
+- [viewer.html](viewer.html) - a static html file which relies on https://cdn.jsdelivr.net/npm/marked/marked.min.js to render markdown nicely
 
 ## Usage
 
