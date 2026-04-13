@@ -1,8 +1,8 @@
 # llama-server-conversation-viewer
 A simple conversation viewer for llama-server exports
 
-<img width="1053" height="547" alt="image" src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" />
-<img width="1062" height="579" alt="image" src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" />
+<img width="526" height="275" alt="image" src="https://github.com/user-attachments/assets/b7dc86bc-c0dd-44bc-903d-f1f5435da538" />
+<img width="526" height="275" alt="image" src="https://github.com/user-attachments/assets/43eea032-0db7-44b5-86a2-f6d8aac87039" />
 
 ## Contents
 
@@ -38,6 +38,10 @@ A simple conversation viewer for llama-server exports
 - maybe I don't want to start a llama-server to take a look at past conversations
 - maybe I want to have a copy of conversations somewhere else outside of browser localstorage
 - the json format might be hard to read with a text editor
+
+## Online version
+
+- https://cristib89.github.io/llama-server-conversation-viewer/viewer.html
 
 ## Disclaimers
 
