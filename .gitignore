@@ -1,0 +1,38 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Standard names)
+venv/
+.venv/
+env/
+ENV/
+bin/
+lib/
+include/
+
+# Environment Variables & Secrets
+.env
+.flaskenv
+
+# Testing & Coverage
+.pytest_cache/
+.tox/
+.coverage
+coverage.xml
+htmlcov/
+nosetests.xml
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# Project Specific
+*.log

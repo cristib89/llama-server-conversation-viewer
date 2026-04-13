@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Llama.cpp Conversation Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --user-text: #0056b3;
+            --assistant-text: #24292f;
+            --tool-bg: #f8f9fa;
+            --system-bg: #f1f3f5;
+            --border: #e1e4e8;
+            --hover-bg: #f6f8fa;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 20px; 
+            color: #24292f; 
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .header { 
+            padding: 20px 0; 
+            border-bottom: 2px solid var(--border); 
+            margin-bottom: 30px; 
+        }
+
+        /* The core change: Remove bubble styling for an inline list */
+        .message-list { display: flex; flex-direction: column; }
+        
+        .msg { 
+            padding: 12px 16px; 
+            border-bottom: 1px solid var(--border); 
+            width: 100%; 
+            box-sizing: border-box;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Hover effect on each conversation item */
+        .msg:hover {
+            background-color: var(--hover-bg);
+        }
+
+        /* Remove the "chat bubble" alignment and max-width */
+        .msg.user, .msg.assistant, .msg.system, .msg.tool {
+            align-self: stretch;
+            max-width: 100%;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Distinguish roles via color/font-weight rather than bubbles */
+        .msg.user { border-left: 4px solid var(--user-text); }
+        .msg.user .meta strong { color: var(--user-text); }
+
+        .msg.assistant { border-left: 4px solid #28a745; }
+        
+        .msg.system { 
+            background: var(--system-bg); 
+            font-size: 0.9em; 
+            color: #6a737d;
+            border-left: 4px solid #6c757d;
+        }
+
+        .msg.tool { 
+            background: var(--tool-bg); 
+            font-family: ui-monospace, SFMono-Regular, monospace; 
+            font-size: 0.9em;
+            border-left: 4px solid #f3cf00;
+        }
+
+        .meta { 
+            font-size: 0.75rem; 
+            margin-bottom: 8px; 
+            color: #6a737d;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Markdown & Code Block Fixes */
+        .content { overflow-wrap: break-word; }
+
+        /* Fix for long code blocks exceeding the div */
+        pre, code {
+            white-space: pre-wrap;       /* CSS3 */
+            white-space: -moz-pre-wrap; /* Firefox */
+            white-space: -pre-wrap;     /* Opera */
+            white-space: -ms-pre-wrap;   /* IE10 */
+            word-wrap: break-word;      /* Internet Explorer 5.5+ */
+        }
+
+        pre {
+            background: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto; /* Allow horizontal scroll if code is extremely long */
+            border: 1px solid var(--border);
+        }
+
+        .content h1, .content h2, .content h3 { margin-top: 16px; margin-bottom: 8px; }
+        .content p { margin: 8px 0; }
+
+        .timing { 
+            font-size: 0.7rem; 
+            color: #8c959f; 
+            margin-top: 8px; 
+            font-family: monospace;
+        }
+        
+        /* Stats Dashboard */
+        .stats-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .stat-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .stat-value { display: block; font-size: 1.2rem; font-weight: bold; color: #007bff; }
+        .stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; }
+
+        /* Copy button positioning */
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.7em;
+            padding: 4px 8px;
+            background: #e1e4e8;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .copy-btn:hover { background: #d1d5da; }
+   
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2 style="margin:0">Conversation Log</h2>
+        <input type="file" id="loader" accept=".json" style="margin-top: 10px;">
+        <div id="info" style="display:none; margin-top: 10px; font-size: 0.9em; color: #666;"></div>
+    </div>
+    <div id="view" class="message-list"></div>
+</div>
+
+<script>
+    marked.setOptions({ gfm: true, breaks: true });
+
+    document.getElementById('loader').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => render(JSON.parse(event.target.result));
+        reader.readAsText(file);
+    });
+
+    function render(data) {
+        const view = document.getElementById('view');
+        const info = document.getElementById('info');
+        view.innerHTML = '';
+        
+        if (data.conv) {
+            info.style.display = 'block';
+            info.innerHTML = `<strong>Session:</strong> ${data.conv.name}`;
+        }
+
+        const sorted = data.messages.sort((a, b) => a.timestamp - b.timestamp);
+
+        sorted.forEach(m => {
+            if (m.role === 'system' && !m.content) return;
+
+            const div = document.createElement('div');
+            div.className = `msg ${m.role}`;
+
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+            meta.innerHTML = `<strong>${m.role.toUpperCase()}</strong> <span>${new Date(m.timestamp).toLocaleTimeString()}</span>`;
+            div.appendChild(meta);
+
+            // Reasoning logic
+            const reasoning = m.reasoningContent || m.reasoning_content || m.reasoning;
+            if (reasoning) {
+                const thoughtDiv = document.createElement('div');
+                thoughtDiv.className = 'thought-block';
+                thoughtDiv.style = "background: #fcfcfc; border-left: 3px solid #ddd; padding: 10px; margin: 10px 0; font-style: italic; color: #666; font-size: 0.9em;";
+                thoughtDiv.innerHTML = `<strong>Reasoning:</strong><br>${marked.parse(reasoning)}`;
+                div.appendChild(thoughtDiv);
+            }
+
+            const content = document.createElement('div');
+            content.className = 'content';
+            content.innerHTML = marked.parse(m.content || "");
+            div.appendChild(content);
+
+            // Add copy buttons to code blocks inside the content
+            content.querySelectorAll('pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.innerHTML = 'Copy';
+                btn.className = 'copy-btn';
+                btn.onclick = async () => {
+                    const code = pre.querySelector('code')?.textContent || pre.textContent;
+                    await navigator.clipboard.writeText(code);
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = 'Copy', 1500);
+                };
+                pre.style.position = 'relative';
+                pre.appendChild(btn);
+            });
+
+            if (m.timings) {
+                const t = m.timings;
+                const timingDiv = document.createElement('div');
+                timingDiv.className = 'timing';
+                timingDiv.innerHTML = `Model: ${m.model || 'Unknown'} | ${t.predicted_n} tokens @ ${t.predicted_per_second?.toFixed(1) || '?'} t/s`;
+                div.appendChild(timingDiv);
+            }
+
+            view.appendChild(div);
+        });
+
+        // Stats Dashboard
+        const stats = calculateStats(sorted);
+        const statsDiv = document.createElement('div');
+        statsDiv.className = 'stats-card';
+        statsDiv.innerHTML = `
+            <h3 style="margin-top:0">Session Performance</h3>
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-value">${stats.avgVelocity} t/s</span><span class="stat-label">Avg. Velocity</span></div>
+                <div class="stat-item"><span class="stat-value">${stats.totalTokens}</span><span class="stat-label">Total Tokens</span></div>
+                <div class="stat-item"><span class="stat-value">${stats.ratio}</span><span class="stat-label">Prompt/Gen Ratio</span></div>
+            </div>
+        `;
+        view.appendChild(statsDiv);
+    }
+
+    function calculateStats(messages) {
+        let totalTokens = 0, totalPromptTime = 0, totalGenTime = 0, velocitySum = 0, assistantMsgCount = 0;
+        messages.forEach(m => {
+            if (m.timings) {
+                const t = m.timings;
+                totalTokens += (t.predicted_n || 0);
+                totalPromptTime += (t.prompt_ms || 0);
+                totalGenTime += (t.predicted_ms || 0);
+                if (t.predicted_per_second) { velocitySum += t.predicted_per_second; assistantMsgCount++; }
+            }
+        });
+        const avgVelocity = assistantMsgCount > 0 ? (velocitySum / assistantMsgCount).toFixed(2) : 0;
+        const totalTime = totalPromptTime + totalGenTime;
+        const ratio = totalTime > 0 ? `${Math.round((totalPromptTime / totalTime) * 100)}% / ${Math.round((totalGenTime / totalTime) * 100)}%` : "N/A";
+        return { avgVelocity, totalTokens, totalPromptTime, totalGenTime, ratio };
+    }
+</script>
+
+</body>
+</html>

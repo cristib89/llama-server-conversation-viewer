@@ -1,0 +1,70 @@
+{
+  "conv": {
+    "id": "208b105d-bdff-4c16-95a2-a6c6cf432819",
+    "name": "I need a simple pizza dough recipe for 3 medium pizza, provide only the ingredients in grams and nothing else.",
+    "lastModified": 1776079889342,
+    "currNode": "2db6a381-2fbd-4903-bb27-18bcd36f1f0f",
+    "mcpServerOverrides": [
+      {
+        "serverId": "f5a8e74e-f22f-428c-8506-f59601d2513e",
+        "enabled": true
+      },
+      {
+        "serverId": "120247f4-92af-4e6e-bbd3-258d8b585d3c",
+        "enabled": true
+      },
+      {
+        "serverId": "f2f09a4f-bea9-4372-a21c-b415fdeb86bf",
+        "enabled": true
+      }
+    ]
+  },
+  "messages": [
+    {
+      "id": "79d1def9-8291-4ee4-88ac-c0c12f5524b5",
+      "convId": "208b105d-bdff-4c16-95a2-a6c6cf432819",
+      "type": "system",
+      "timestamp": 1776079889409,
+      "role": "system",
+      "content": "You're a helpful assistant",
+      "parent": "ff0238b2-e18d-48c4-bc5b-1ed008586ff2",
+      "children": []
+    },
+    {
+      "convId": "208b105d-bdff-4c16-95a2-a6c6cf432819",
+      "role": "user",
+      "content": "I need a simple pizza dough recipe for 3 medium pizza, provide only the ingredients in grams and nothing else.",
+      "type": "text",
+      "timestamp": 1776079889423,
+      "toolCalls": "",
+      "children": [],
+      "extra": [],
+      "id": "88fca05d-01b8-4566-bca7-923f75c92b44",
+      "parent": "79d1def9-8291-4ee4-88ac-c0c12f5524b5"
+    },
+    {
+      "convId": "208b105d-bdff-4c16-95a2-a6c6cf432819",
+      "type": "text",
+      "role": "assistant",
+      "content": "500g flour\n325g water\n10g salt\n3g yeast",
+      "timestamp": 1776079889462,
+      "toolCalls": "",
+      "children": [],
+      "model": "google_gemma-4-26B-A4B-it-Q4_K_M.gguf",
+      "id": "2db6a381-2fbd-4903-bb27-18bcd36f1f0f",
+      "parent": "88fca05d-01b8-4566-bca7-923f75c92b44",
+      "reasoningContent": "The user wants a simple pizza dough recipe for 3 medium pizzas, with only ingredients in grams and nothing else.\n\nI don't need to use any tools for this, it's a general knowledge query. I will provide the ingredients.\n\nFor 3 medium pizzas (approx 250g-300g dough per pizza):\nTotal dough needed: ~750g-900g.\n\nStandard ratio:\nFlour (00 or bread flour): ~450-500g\nWater: ~300g (60-65% hydration)\nSalt: ~10-15g\nYeast (Instant): ~3-5g\n\nLet's refine for 3 medium pizzas:\nFlour: 500g\nWater: 325g\nSalt: 10g\nYeast: 3g\n\nWait, the user said \"provide only the ingredients in grams and nothing else\".\n\nIngredients:\n500g flour\n325g water\n10g salt\n3g yeast\n\nI'll provide this.",
+      "timings": {
+        "cache_n": 921,
+        "prompt_n": 28,
+        "prompt_ms": 1256.575,
+        "prompt_per_token_ms": 44.877678571428575,
+        "prompt_per_second": 22.282792511390088,
+        "predicted_n": 264,
+        "predicted_ms": 26910.501,
+        "predicted_per_token_ms": 101.9337159090909,
+        "predicted_per_second": 9.810296731376349
+      }
+    }
+  ]
+}

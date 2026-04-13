@@ -1,0 +1,303 @@
+[
+  {
+    "conv": {
+      "id": "2ea30759-95be-482f-8d60-b28d233a2f33",
+      "name": "Run a query on the available database to figure out the current date and time.",
+      "lastModified": 1776079752560,
+      "currNode": "",
+      "mcpServerOverrides": [
+        {
+          "serverId": "f5a8e74e-f22f-428c-8506-f59601d2513e",
+          "enabled": true
+        },
+        {
+          "serverId": "120247f4-92af-4e6e-bbd3-258d8b585d3c",
+          "enabled": true
+        },
+        {
+          "serverId": "f2f09a4f-bea9-4372-a21c-b415fdeb86bf",
+          "enabled": true
+        }
+      ]
+    },
+    "messages": [
+      {
+        "id": "65980bbb-ae62-4c5f-844b-fcd10a5e254c",
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "type": "root",
+        "timestamp": 1776079752543,
+        "role": "system",
+        "content": "",
+        "parent": null,
+        "toolCalls": "",
+        "children": [
+          "2b1027fd-7e92-4479-83d5-39670acac8be"
+        ]
+      },
+      {
+        "id": "2b1027fd-7e92-4479-83d5-39670acac8be",
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "type": "system",
+        "timestamp": 1776079752548,
+        "role": "system",
+        "content": "You're a helpful assistant",
+        "parent": "65980bbb-ae62-4c5f-844b-fcd10a5e254c",
+        "children": [
+          "b63a9756-0a53-4d00-bd50-d7ee8d0a0579"
+        ]
+      },
+      {
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "role": "user",
+        "content": "Run a query on the available database to figure out the current date and time.",
+        "type": "text",
+        "timestamp": 1776079752550,
+        "toolCalls": "",
+        "children": [
+          "9848232e-8603-41ae-928b-9768e425d87a"
+        ],
+        "extra": [],
+        "id": "b63a9756-0a53-4d00-bd50-d7ee8d0a0579",
+        "parent": "2b1027fd-7e92-4479-83d5-39670acac8be"
+      },
+      {
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "type": "text",
+        "role": "assistant",
+        "content": "",
+        "timestamp": 1776079752563,
+        "toolCalls": "[{\"id\":\"IpJnH4EFV5EsSFRA980y9X9LK3IoTqXp\",\"type\":\"function\",\"function\":{\"name\":\"execute_sql\",\"arguments\":\"{\\\"query\\\":\\\"SELECT CURRENT_TIMESTAMP;\\\"}\"}}]",
+        "children": [
+          "99cc7d3d-0a9a-40fb-b8fe-c14779c34cb6"
+        ],
+        "model": "google_gemma-4-26B-A4B-it-Q4_K_M.gguf",
+        "id": "9848232e-8603-41ae-928b-9768e425d87a",
+        "parent": "b63a9756-0a53-4d00-bd50-d7ee8d0a0579",
+        "reasoningContent": "The user wants to know the current date and time by running a query on the database. I should use the `execute_sql` tool to perform this task. In SQL, the command to get the current date and time varies depending on the database system, but `SELECT CURRENT_TIMESTAMP;` or `SELECT datetime('now');` (for SQLite) are common. Since I don't know the exact database type, I'll try a standard SQL command like `SELECT CURRENT_TIMESTAMP;`.",
+        "timings": {
+          "predicted_n": 36,
+          "predicted_ms": 3533.811,
+          "prompt_n": 91,
+          "prompt_ms": 3728.93,
+          "cache_n": 920,
+          "agentic": {
+            "turns": 2,
+            "toolCallsCount": 1,
+            "toolsMs": 20,
+            "toolCalls": [
+              {
+                "name": "execute_sql",
+                "duration_ms": 20,
+                "success": true
+              }
+            ],
+            "perTurn": [
+              {
+                "turn": 1,
+                "llm": {
+                  "predicted_n": 125,
+                  "predicted_ms": 12682.303,
+                  "prompt_n": 21,
+                  "prompt_ms": 1014.992
+                },
+                "toolCalls": [
+                  {
+                    "name": "execute_sql",
+                    "duration_ms": 20,
+                    "success": true
+                  }
+                ],
+                "toolsMs": 20
+              },
+              {
+                "turn": 2,
+                "llm": {
+                  "predicted_n": 36,
+                  "predicted_ms": 3533.811,
+                  "prompt_n": 91,
+                  "prompt_ms": 3728.93
+                },
+                "toolCalls": [],
+                "toolsMs": 0
+              }
+            ],
+            "llm": {
+              "predicted_n": 161,
+              "predicted_ms": 16216.114,
+              "prompt_n": 112,
+              "prompt_ms": 4743.922
+            }
+          }
+        }
+      },
+      {
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "type": "text",
+        "role": "tool",
+        "content": "{\"success\": true, \"columns\": [\"CURRENT_TIMESTAMP\"], \"rows\": [[\"2026-04-13 11:29:26\"]], \"row_count\": 1}",
+        "toolCallId": "IpJnH4EFV5EsSFRA980y9X9LK3IoTqXp",
+        "timestamp": 1776079766326,
+        "toolCalls": "",
+        "children": [
+          "ed3aa0a0-0033-4bf2-8362-6487a246a186"
+        ],
+        "id": "99cc7d3d-0a9a-40fb-b8fe-c14779c34cb6",
+        "parent": "9848232e-8603-41ae-928b-9768e425d87a"
+      },
+      {
+        "convId": "2ea30759-95be-482f-8d60-b28d233a2f33",
+        "type": "text",
+        "role": "assistant",
+        "content": "The current date and time according to the database is **2026-04-13 11:29:26**.",
+        "timestamp": 1776079766336,
+        "toolCalls": "",
+        "children": [],
+        "model": "google_gemma-4-26B-A4B-it-Q4_K_M.gguf",
+        "id": "ed3aa0a0-0033-4bf2-8362-6487a246a186",
+        "parent": "99cc7d3d-0a9a-40fb-b8fe-c14779c34cb6",
+        "timings": {
+          "predicted_n": 36,
+          "predicted_ms": 3533.811,
+          "prompt_n": 91,
+          "prompt_ms": 3728.93,
+          "cache_n": 920,
+          "agentic": {
+            "turns": 2,
+            "toolCallsCount": 1,
+            "toolsMs": 20,
+            "toolCalls": [
+              {
+                "name": "execute_sql",
+                "duration_ms": 20,
+                "success": true
+              }
+            ],
+            "perTurn": [
+              {
+                "turn": 1,
+                "llm": {
+                  "predicted_n": 125,
+                  "predicted_ms": 12682.303,
+                  "prompt_n": 21,
+                  "prompt_ms": 1014.992
+                },
+                "toolCalls": [
+                  {
+                    "name": "execute_sql",
+                    "duration_ms": 20,
+                    "success": true
+                  }
+                ],
+                "toolsMs": 20
+              },
+              {
+                "turn": 2,
+                "llm": {
+                  "predicted_n": 36,
+                  "predicted_ms": 3533.811,
+                  "prompt_n": 91,
+                  "prompt_ms": 3728.93
+                },
+                "toolCalls": [],
+                "toolsMs": 0
+              }
+            ],
+            "llm": {
+              "predicted_n": 161,
+              "predicted_ms": 16216.114,
+              "prompt_n": 112,
+              "prompt_ms": 4743.922
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "conv": {
+      "id": "7e3591a8-5ce1-4efb-a64d-2055c62172be",
+      "name": "Hello test 1,2,3",
+      "lastModified": 1776079688254,
+      "currNode": "",
+      "mcpServerOverrides": [
+        {
+          "serverId": "f5a8e74e-f22f-428c-8506-f59601d2513e",
+          "enabled": true
+        },
+        {
+          "serverId": "120247f4-92af-4e6e-bbd3-258d8b585d3c",
+          "enabled": true
+        },
+        {
+          "serverId": "f2f09a4f-bea9-4372-a21c-b415fdeb86bf",
+          "enabled": true
+        }
+      ]
+    },
+    "messages": [
+      {
+        "id": "9da9ef63-728c-4ee0-b435-f599e1bea495",
+        "convId": "7e3591a8-5ce1-4efb-a64d-2055c62172be",
+        "type": "root",
+        "timestamp": 1776079688206,
+        "role": "system",
+        "content": "",
+        "parent": null,
+        "toolCalls": "",
+        "children": [
+          "7448ae98-c2d5-405b-80c3-0a7479909c58"
+        ]
+      },
+      {
+        "id": "7448ae98-c2d5-405b-80c3-0a7479909c58",
+        "convId": "7e3591a8-5ce1-4efb-a64d-2055c62172be",
+        "type": "system",
+        "timestamp": 1776079688221,
+        "role": "system",
+        "content": "You're a helpful assistant",
+        "parent": "9da9ef63-728c-4ee0-b435-f599e1bea495",
+        "children": [
+          "04e709cc-ee0e-4cae-bb57-38152de711e3"
+        ]
+      },
+      {
+        "convId": "7e3591a8-5ce1-4efb-a64d-2055c62172be",
+        "role": "user",
+        "content": "Hello test 1,2,3",
+        "type": "text",
+        "timestamp": 1776079688223,
+        "toolCalls": "",
+        "children": [
+          "4f633e77-7bda-43d9-876a-caab75c7557a"
+        ],
+        "extra": [],
+        "id": "04e709cc-ee0e-4cae-bb57-38152de711e3",
+        "parent": "7448ae98-c2d5-405b-80c3-0a7479909c58"
+      },
+      {
+        "convId": "7e3591a8-5ce1-4efb-a64d-2055c62172be",
+        "type": "text",
+        "role": "assistant",
+        "content": "Hello! I hear you loud and clear. How can I help you today?",
+        "timestamp": 1776079688258,
+        "toolCalls": "",
+        "children": [],
+        "model": "google_gemma-4-26B-A4B-it-Q4_K_M.gguf",
+        "id": "4f633e77-7bda-43d9-876a-caab75c7557a",
+        "parent": "04e709cc-ee0e-4cae-bb57-38152de711e3",
+        "reasoningContent": "The user said \"Hello test 1,2,3\". This is a simple greeting/test message. I should respond politely and acknowledge the test.\n\nI don't need to use any tools for this.",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 934,
+          "prompt_ms": 30813.949,
+          "prompt_per_token_ms": 32.991380085653105,
+          "prompt_per_second": 30.31094781133051,
+          "predicted_n": 65,
+          "predicted_ms": 6484.435,
+          "predicted_per_token_ms": 99.76053846153847,
+          "predicted_per_second": 10.024003633315777
+        }
+      }
+    ]
+  }
+]
